@@ -1,0 +1,39 @@
+﻿###
+
+GET http://localhost:5193/api/todos
+
+###
+
+POST localhost:5193/api/todos
+Content-Type: application/json
+
+{
+    "Title": "Play Basketball",
+    "Description": "Play Basketball with friends",
+    "DueDate": "2027-07-01T00:00:00"
+}
+
+###
+
+PATCH localhost:5193/api/todos/1
+Content-Type: application/json
+
+{
+    "IsCompleted": false,
+    "DueDate": "2026-07-01T00:00:00"
+}
+
+###
+
+PUT localhost:5193/api/todos/1
+Content-Type: application/json
+
+{
+    "Title": "Test Todo",
+    "Description": "Sample Description",
+    "DueDate": "2029-07-01T00:00:00"
+}
+
+###
+
+DELETE localhost:5193/api/todos/1
