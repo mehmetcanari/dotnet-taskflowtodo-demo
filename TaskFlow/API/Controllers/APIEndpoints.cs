@@ -53,11 +53,7 @@ public class ApiEndpoints(WebApplication app)
     {
         app.MapPatch("/api/todos/{id}", (long id, PatchTodoDto patchTodoDto) =>
         {
-            TodoItem? todoItem = _tasksDb.GetTodoItem(id);
-            if (todoItem == null)
-            {
-                return Results.NotFound();
-            }
+            TodoItem todoItem = _tasksDb.GetTodoItem(id);
             
             todoItem.IsComplete = patchTodoDto.IsComplete;
             if (patchTodoDto.DueDate == DateTime.MinValue)
@@ -73,19 +69,16 @@ public class ApiEndpoints(WebApplication app)
     {
         app.MapPut("/api/todos/{id}", (long id, UpdateTodoDto updateTodoDto) =>
         {
-            TodoItem? todoItem = _tasksDb.GetTodoItem(id);
-            if (todoItem == null)
-            {
-                return Results.NotFound();
-            }
+            TodoItem todoItem = _tasksDb.GetTodoItem(id);
             
             todoItem.Title = updateTodoDto.Title;
             todoItem.Description = updateTodoDto.Description;
             todoItem.IsComplete = updateTodoDto.IsComplete;
+           
             if (updateTodoDto.DueDate == DateTime.MinValue)
                 return Results.BadRequest("DueDate is required");
-            
             todoItem.DueDate = updateTodoDto.DueDate;
+            
             return Results.Ok(todoItem);
         }).WithParameterValidation();
     }

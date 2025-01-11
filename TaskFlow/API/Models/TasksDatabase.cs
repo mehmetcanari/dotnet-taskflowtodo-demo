@@ -19,7 +19,7 @@ public class TasksDatabase
         return _todoItems.Count;
     }
     
-    public List<TodoItem?> GetTodoItems()
+    public List<TodoItem> GetTodoItems()
     {
         if (_todoItems.Count == 0)
         {
@@ -29,20 +29,21 @@ public class TasksDatabase
         return _todoItems;
     }
 
-    public TodoItem? GetTodoItem(long id)
+    public TodoItem GetTodoItem(long id)
     {
-        TodoItem item = _todoItems.FirstOrDefault(todoItem => todoItem.Id == id);
+        var item = _todoItems.FirstOrDefault(todoItem => todoItem.Id == id);
         if (item == null)
         {
-            throw new Exception("Item not found");
+            throw new KeyNotFoundException($"Todo item with ID {id} not found.");
         }
-        
+    
         return item;
     }
+
     
     public void DeleteTodoItem(long id)
     {
-        TodoItem item = _todoItems.FirstOrDefault(todoItem => todoItem.Id == id);
+        TodoItem? item = _todoItems.FirstOrDefault(todoItem => todoItem.Id == id);
         if (item == null)
         {
             throw new Exception("Item not found");
