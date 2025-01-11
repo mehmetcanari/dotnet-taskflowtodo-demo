@@ -8,19 +8,18 @@ POST localhost:5193/api/todos
 Content-Type: application/json
 
 {
-    "Title": "Play Basketball",
-    "Description": "Play Basketball with friends",
-    "DueDate": "2027-07-01T00:00:00"
+    "Title": "Play Guitar",
+    "Description": "Play Guitar for 30 minutes",
+    "DueDate": "2029-07-01T00:00:00"
 }
 
 ###
 
-PATCH localhost:5193/api/todos/1
+PATCH localhost:5193/api/todos/3
 Content-Type: application/json
 
 {
-    "IsCompleted": false,
-    "DueDate": "2026-07-01T00:00:00"
+    "isComplete": true
 }
 
 ###
@@ -31,6 +30,7 @@ Content-Type: application/json
 {
     "Title": "Test Todo",
     "Description": "Sample Description",
+    "isComplete": true,
     "DueDate": "2029-07-01T00:00:00"
 }
 

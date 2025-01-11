@@ -37,7 +37,8 @@ public class ApiEndpoints(WebApplication app)
             
             _tasksDb.AddTodoItem(todoItem);
             return Results.Created($"/api/todos/{todoItem.Id}", todoItem);
-        }).WithParameterValidation();
+        })
+            .WithParameterValidation();
     }
 
     private void DeleteTodoItem()
@@ -45,7 +46,7 @@ public class ApiEndpoints(WebApplication app)
         app.MapDelete("/api/todos/{id}", (long id) =>
         {
             _tasksDb.DeleteTodoItem(id);
-            return Results.NoContent();
+            return Results.Content($"Todo item {id} deleted successfully");
         });
     }
 
@@ -54,15 +55,11 @@ public class ApiEndpoints(WebApplication app)
         app.MapPatch("/api/todos/{id}", (long id, PatchTodoDto patchTodoDto) =>
         {
             TodoItem todoItem = _tasksDb.GetTodoItem(id);
-            
             todoItem.IsComplete = patchTodoDto.IsComplete;
-            if (patchTodoDto.DueDate == DateTime.MinValue)
-                return Results.BadRequest("DueDate is required");
-
-            todoItem.DueDate = patchTodoDto.DueDate;
             
             return Results.Ok(todoItem);
-        }).WithParameterValidation();
+        })
+            .WithParameterValidation();
     }
 
     private void UpdateTodoItem()
@@ -80,6 +77,7 @@ public class ApiEndpoints(WebApplication app)
             todoItem.DueDate = updateTodoDto.DueDate;
             
             return Results.Ok(todoItem);
-        }).WithParameterValidation();
+        })
+            .WithParameterValidation();
     }
 }
