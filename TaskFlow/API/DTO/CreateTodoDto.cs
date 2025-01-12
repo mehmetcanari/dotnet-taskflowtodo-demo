@@ -8,5 +8,6 @@ public record CreateTodoDto
     public string Title { get; init; }
     [MaxLength(200)]
     public string Description { get; init; }
+    [Required]
     public DateTime DueDate { get; init; }
 }

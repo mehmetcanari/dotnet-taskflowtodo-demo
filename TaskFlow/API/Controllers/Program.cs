@@ -1,9 +1,15 @@
 using TaskFlow.API.Controllers;
 
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+SwaggerBuilder swaggerBuilder = new(builder);
+swaggerBuilder.Build();
 
-ApiEndpoints apiEndpoints = new(app);
+WebApplication webApplication = builder.Build();
+SwaggerAppConfigure swaggerAppConfigure = new();
+
+swaggerAppConfigure.Configure(webApplication);
+
+ApiEndpoints apiEndpoints = new(webApplication);
 apiEndpoints.Initialize();
 
-app.Run();
+webApplication.Run();

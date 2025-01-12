@@ -1,5 +1,6 @@
 ﻿using TaskFlow.API.DTO;
 using TaskFlow.API.Models;
+using Microsoft.OpenApi.Models;
 
 namespace TaskFlow.API.Controllers;
 
@@ -18,26 +19,50 @@ public class ApiEndpoints(WebApplication app)
 
     private void GetTodoItems()
     {
-        app.MapGet("/", () => Results.Text("Welcome to TaskFlow API!"));
-        app.MapGet("/api/todos", _tasksDb.GetTodoItems);
-        app.MapGet("/api/todos/{id}", _tasksDb.GetTodoItem);
+        app.MapGet("/api/todos", _tasksDb.GetTodoItems)
+            .WithName("GetAllTodos")
+            .WithTags("Todos")
+            .WithOpenApi(operation => new OpenApiOperation(operation)
+            {
+                Summary = "Gets all todo items",
+                Description = "Retrieves a list of all todo items in the database"
+            });
+
+        app.MapGet("/api/todos/{id}", _tasksDb.GetTodoItem)
+            .WithName("GetTodoById")
+            .WithTags("Todos")
+            .WithOpenApi(operation => new OpenApiOperation(operation)
+            {
+                Summary = "Gets a todo item by ID",
+                Description = "Retrieves a specific todo item by its ID"
+            });
     }
 
     private void PostTodoItem()
     {
-        app.MapPost("/api/todos", (CreateTodoDto todoDto) =>
+        app.MapPost("/api/todos", (CreateTodoDto createTodoDto) =>
         {
             TodoItem todoItem = new()
             {
                 Id = _tasksDb.GetTodoItemsCount() + 1,    
-                Title = todoDto.Title,
-                Description = todoDto.Description,
-                DueDate = todoDto.DueDate,
+                Title = createTodoDto.Title,
+                Description = createTodoDto.Description,
             };
+            
+            if (createTodoDto.DueDate == DateTime.MinValue)
+                return Results.BadRequest("DueDate is required");
+            todoItem.DueDate = createTodoDto.DueDate;
             
             _tasksDb.AddTodoItem(todoItem);
             return Results.Created($"/api/todos/{todoItem.Id}", todoItem);
         })
+            .WithName("CreateTodo")
+            .WithTags("Todos")
+            .WithOpenApi(operation => new OpenApiOperation(operation)
+            {
+                Summary = "Creates a new todo item",
+                Description = "Creates a new todo item with the provided details"
+            })
             .WithParameterValidation();
     }
 
@@ -47,7 +72,14 @@ public class ApiEndpoints(WebApplication app)
         {
             _tasksDb.DeleteTodoItem(id);
             return Results.Content($"Todo item {id} deleted successfully");
-        });
+        })
+            .WithName("DeleteTodo")
+            .WithTags("Todos")
+            .WithOpenApi(operation => new OpenApiOperation(operation)
+            {
+                Summary = "Deletes a todo item",
+                Description = "Deletes a specific todo item by its ID"
+            });
     }
 
     private void PatchTodoItem()
@@ -55,10 +87,19 @@ public class ApiEndpoints(WebApplication app)
         app.MapPatch("/api/todos/{id}", (long id, PatchTodoDto patchTodoDto) =>
         {
             TodoItem todoItem = _tasksDb.GetTodoItem(id);
+            todoItem.Title = patchTodoDto.Title;
+            todoItem.Description = patchTodoDto.Description;
             todoItem.IsComplete = patchTodoDto.IsComplete;
             
             return Results.Ok(todoItem);
         })
+            .WithName("UpdateTodoStatus")
+            .WithTags("Todos")
+            .WithOpenApi(operation => new OpenApiOperation(operation)
+            {
+                Summary = "Updates todo completion status",
+                Description = "Updates the completion status of a specific todo item"
+            })
             .WithParameterValidation();
     }
 
@@ -78,6 +119,13 @@ public class ApiEndpoints(WebApplication app)
             
             return Results.Ok(todoItem);
         })
+            .WithName("UpdateTodo")
+            .WithTags("Todos")
+            .WithOpenApi(operation => new OpenApiOperation(operation)
+            {
+                Summary = "Updates a todo item",
+                Description = "Updates all fields of a specific todo item"
+            })
             .WithParameterValidation();
     }
 }
