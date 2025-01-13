@@ -1,4 +1,4 @@
-<h1 align="center">TaskFlow API</h1>
+# TaskFlow API
 
 ###
 
@@ -8,6 +8,8 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="40" alt="csharp logo"  />
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetbrains/jetbrains-original.svg" height="40" alt="jetbrains logo"  />
+  <img width="12" />
+  <img src="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg" height="40" alt="swagger logo"  />
 </div>
 
 ###
@@ -16,11 +18,11 @@
 
 ###
 
-<h3 align="center">-FEATURES-<br><br>CRUD Operations: Create, Read, Update, Delete tasks<br><br>Minimal API: Efficient and easy-to-maintain API structure<br><br>DTO & Validation: Ensures data integrity and security with DTOs and validation<br><br>In-memory Database: Temporary storage for tasks using an in-memory list</h3>
+<h3 align="center">-FEATURES-<br><br>CRUD Operations: Create, Read, Update, Delete tasks<br><br>Minimal API: Efficient and easy-to-maintain API structure<br><br>DTO & Validation: Ensures data integrity and security with DTOs and validation<br><br>In-memory Database: Temporary storage for tasks using an in-memory list<br><br>Swagger UI: Interactive API documentation and testing interface</h3>
 
 ###
 
-<h2 align="left">Structure Markdown</h2>
+## Structure Markdown
 
 ###
 
@@ -28,31 +30,36 @@
 
 ###
 
-<h2 align="left">The API will be available at: <br>
-
-</h2>
+## API Access Points
 
 ###
 
+The API can be accessed through two interfaces:
+
+1. Direct API Endpoint:
 ```http
 http://localhost:5193
 ```
 
+2. Swagger UI Documentation:
+```http
+http://localhost:5193/swagger
+```
+
 ###
 
-<h3 align="left">Retrieve all tasks. </h3>  
- 
+## API Endpoints
+
+###
+
+### Retrieve all tasks
 
 ```http
 GET http://localhost:5193/api/todos
 ```
-###
 
-<h3 align="left">
+### Create a new task
 
- Create a new task.
- </h3>
- 
 ```http
 POST localhost:5193/api/todos
 Content-Type: application/json
@@ -64,12 +71,7 @@ Content-Type: application/json
 }
 ```
 
-###
-
-<h3 align="left">
-  
-Partial update a task.  
-</h3>  
+### Partial update a task
 
 ```http
 PATCH http://localhost:5193/api/todos/1
@@ -81,10 +83,7 @@ Content-Type: application/json
 }
 ```
 
-###
-
-<h3 align="left">
-Fully update a task. </h3> 
+### Fully update a task
 
 ```http
 PUT localhost:5193/api/todos/1
@@ -97,12 +96,22 @@ Content-Type: application/json
     "DueDate": "2029-07-01T00:00:00"
 }
 ```
-###
 
-<h3 align="left">
-Delete a task. </h3> 
+### Delete a task
 
 ```http
 DELETE localhost:5193/api/todos/1
 ```
+###
 
+<h2 align="center">
+Interactive Documentation
+  
+The API includes Swagger UI integration for easy testing and documentation.
+</h2>
+
+This provides a user-friendly way to:
+- Explore all available endpoints
+- Test API functionality directly from the browser
+- View request and response schemas
+- Understand API capabilities and requirements
