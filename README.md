@@ -14,104 +14,11 @@
 
 ###
 
-<h2 align="center">TaskFlow API is a simple and efficient RESTful API built with .NET 9 using the Minimal API approach for managing tasks. It supports CRUD operations for task management, including creating, updating, deleting, and retrieving tasks. This API is designed for lightweight use with in-memory database for fast development and testing.</h2>
+<h2 align="center">TaskFlow API, görev yönetimi için .NET 9 kullanılarak Minimal API yaklaşımı ile geliştirilmiş basit ve verimli bir RESTful API'dir. Bu API, görevlerin oluşturulması, güncellenmesi, silinmesi ve sorgulanması için CRUD işlemleri destekler. Hızlı geliştirme ve test amaçlı hafif kullanım için bellek içi veritabanı ile tasarlanmıştır.</h2>
 
 ###
 
-<h3 align="center">-FEATURES-<br><br>CRUD Operations: Create, Read, Update, Delete tasks<br><br>Minimal API: Efficient and easy-to-maintain API structure<br><br>DTO & Validation: Ensures data integrity and security with DTOs and validation<br><br>In-memory Database: Temporary storage for tasks using an in-memory list<br><br>Swagger UI: Interactive API documentation and testing interface</h3>
+<h3 align="center">-ÖZELLİKLER-<br><br>CRUD İşlemleri: Görevleri oluşturma, okuma, güncelleme, silme<br><br>Minimal API: Verimli ve bakımının kolay olduğu API yapısı<br><br>DTO & Doğrulama: DTO'lar ve doğrulama ile veri bütünlüğü ve güvenliği sağlanır<br><br>Bellek içi Veritabanı: Görevler için geçici depolama, bellek içi liste kullanılarak sağlanır<br><br>Swagger UI: Etkileşimli API dokümantasyonu ve test arayüzü</h3>
 
 ###
 
-## Structure Markdown
-
-###
-
-<h3 align="left">📁 API/<br>├── 📁 Controllers/<br>│   ├── APIEndpoints.cs<br>│   ├── Program.cs<br>│   └── TaskFlowAPI.http<br>├── 📁 DTO/                                  <br>│   ├── CreateTodoDto.cs<br>│   ├── PatchTodoDto.cs<br>│   └── UpdateTodoDto.cs<br>└── 📁 Models/<br>    ├── TasksDatabase.cs<br>    └── TodoItem.cs</h3>
-
-###
-
-## API Access Points
-
-###
-
-The API can be accessed through two interfaces:
-
-1. Direct API Endpoint:
-```http
-http://localhost:5193
-```
-
-2. Swagger UI Documentation:
-```http
-http://localhost:5193/swagger
-```
-
-###
-
-## API Endpoints
-
-###
-
-### Retrieve all tasks
-
-```http
-GET http://localhost:5193/api/todos
-```
-
-### Create a new task
-
-```http
-POST localhost:5193/api/todos
-Content-Type: application/json
-
-{
-    "Title": "Play Guitar",
-    "Description": "Play Guitar for 30 minutes",
-    "DueDate": "2029-07-01T00:00:00"
-}
-```
-
-### Partial update a task
-
-```http
-PATCH http://localhost:5193/api/todos/1
-Content-Type: application/json
-
-{
-    "IsCompleted": true,
-    "DueDate": "2026-07-01T00:00:00"
-}
-```
-
-### Fully update a task
-
-```http
-PUT localhost:5193/api/todos/1
-Content-Type: application/json
-
-{
-    "Title": "Test Todo",
-    "Description": "Sample Description",
-    "isComplete": true,
-    "DueDate": "2029-07-01T00:00:00"
-}
-```
-
-### Delete a task
-
-```http
-DELETE localhost:5193/api/todos/1
-```
-###
-
-<h2 align="center">
-Interactive Documentation
-  
-The API includes Swagger UI integration for easy testing and documentation.
-</h2>
-
-This provides a user-friendly way to:
-- Explore all available endpoints
-- Test API functionality directly from the browser
-- View request and response schemas
-- Understand API capabilities and requirements
